@@ -20,7 +20,7 @@ const Login = ({ setIsAuthenticated }) => {
     }
   }, [navigate]);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleLogin = async (e) => {
   e.preventDefault();

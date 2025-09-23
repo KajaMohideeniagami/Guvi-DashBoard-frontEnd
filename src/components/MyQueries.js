@@ -6,14 +6,16 @@ const MyQueries = () => {
   const [showForm, setShowForm] = useState(false);
   const [problem, setProblem] = useState('');
   const [availability, setAvailability] = useState('');
-  const [queries, setQueries] = useState([]);  // State to store the list of queries
+  const [queries, setQueries] = useState([]);
 
-  // Fetch queries from the backend when the component mounts
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  // Fetch queries from the backend
   useEffect(() => {
-    axios.get('http://localhost:5001/api/queries')  // Update with your backend URL
+    axios.get(`${API_URL}/queries`)
       .then(response => setQueries(response.data))
       .catch(error => console.error('Error fetching queries:', error));
-  }, []);
+  }, [API_URL]);
 
   const handleClick = () => {
     setShowForm(!showForm);
@@ -25,15 +27,11 @@ const MyQueries = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newQuery = {
-      problem,
-      availability,
-    };
+    const newQuery = { problem, availability };
 
-    // Send the new query to the backend
-    axios.post('http://localhost:5001/api/queries', newQuery)
+    axios.post(`${API_URL}/queries`, newQuery)
       .then(response => {
-        setQueries([...queries, response.data]);  // Update state with the new query
+        setQueries([...queries, response.data]);
         setProblem('');
         setAvailability('');
         setShowForm(false);
@@ -91,7 +89,7 @@ const MyQueries = () => {
             <tbody>
               {queries.map((query, index) => (
                 <tr key={query._id}>
-                  <td>{index + 1}</td> {/* Dynamic Serial Number */}
+                  <td>{index + 1}</td>
                   <td>{query.problem}</td>
                   <td>{new Date(query.availability).toLocaleString()}</td>
                 </tr>

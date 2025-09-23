@@ -9,13 +9,15 @@ const LeaveApplication = () => {
   const [reason, setReason] = useState('');
   const [leaveRecords, setLeaveRecords] = useState([]);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const handleToggleForm = () => {
     setShowForm(!showForm);
   };
 
   const fetchLeaveRecords = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/leave');
+      const response = await fetch(`${API_URL}/leave`);
       const data = await response.json();
       setLeaveRecords(data);
     } catch (err) {
@@ -33,11 +35,9 @@ const LeaveApplication = () => {
       const newRecord = { days, fromDate, toDate, reason };
 
       try {
-        const response = await fetch('http://localhost:5001/api/leave', {
+        const response = await fetch(`${API_URL}/leave`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newRecord),
         });
 
@@ -104,6 +104,7 @@ const LeaveApplication = () => {
           <button type="submit" className="submit-button">Submit</button>
         </form>
       )}
+
       <div className="leave-records">
         {leaveRecords.length > 0 ? (
           <table className="leave-table">
@@ -132,8 +133,6 @@ const LeaveApplication = () => {
           <p>No leave records submitted yet.</p>
         )}
       </div>
-
-
     </div>
   );
 };
