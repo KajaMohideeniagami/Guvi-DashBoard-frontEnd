@@ -1,0 +1,67 @@
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 60px;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+}
+
+/* Sidebar expands on hover */
+.sidebar:hover {
+  width: 200px;
+}
+
+/* Navigation List Reset */
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navigation List Item */
+.sidebar nav ul li {
+  padding: 16px;
+}
+
+/* Navigation Link Styling */
+.sidebar nav ul li a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Icon Styling */
+.sidebar nav ul li a .icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* Text Styling */
+.sidebar nav ul li a .text {
+  opacity: 0;
+  color: black; /* 🔄 Set text color to black */
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Show text when sidebar is hovered */
+.sidebar:hover nav ul li a .text {
+  opacity: 1;
+}
+
+/* Page Content Shift */
+.page-content {
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Shift content when sidebar expands */
+.sidebar:hover ~ .page-content {
+  margin-left: 200px;
+}

@@ -1,0 +1,38 @@
+.left-navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: #282c34;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+.left-navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-navbar ul li {
+    margin: 20px 0;
+}
+
+.left-navbar ul li a {
+    color: #61dafb;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    display: block;
+}
+
+.left-navbar ul li a.active {
+    background-color: #3c4048;
+    border-radius: 4px;
+}
+
+.left-navbar ul li a:hover {
+    background-color: #3c4048;
+    border-radius: 4px;
+}

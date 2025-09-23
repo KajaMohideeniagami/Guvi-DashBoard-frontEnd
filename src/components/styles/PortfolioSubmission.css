@@ -1,0 +1,47 @@
+
+
+   .portfolio-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .portfolio-form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .portfolio-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 4px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .portfolio-form input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .submit-button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  

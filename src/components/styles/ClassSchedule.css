@@ -1,0 +1,75 @@
+/* Wrapper for layout */
+.class-schedule-wrapper {
+    display: flex;
+    padding: 24px;
+    background-color: #f5f5f5;
+  }
+  
+  /* Left Side - Class Details */
+  .class-details {
+    flex: 0 0 70%; 
+    padding-right: 20px;
+  }
+  
+  .details-box {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+  /* Right Side - Schedule Sidebar */
+  .schedule-sidebar {
+    flex: 0 0 30%; 
+    padding-left: 20px;
+  }
+  
+  /* Grid layout for 45-day roadmap */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
+    gap: 12px;
+  }
+  
+  /* Circle design for each day */
+  .day-circle {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    color: rgb(244, 236, 236);
+    border-radius: 50%;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Hover effect for better interactivity */
+  .day-circle:hover {
+    background-color: #5a0cae;
+    transform: scale(1.1);
+  }
+  
+  /* Active Day Highlight */
+  .day-circle.active {
+    background-color: #4caf50;
+  }
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .class-schedule-wrapper {
+      flex-direction: column;
+    }
+  
+    .class-details, .schedule-sidebar {
+      flex: 100%;
+      padding: 10px 0;
+    }
+  
+    .schedule-grid {
+      grid-template-columns: repeat(3, 1fr); /* 3 items per row for smaller screens */
+    }
+  }
+  
