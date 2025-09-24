@@ -14,78 +14,85 @@ const Login = ({ setIsAuthenticated }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // ✅ Backend URL (React 3000, Backend 5001)
+  const BASE_URL =
+    window.location.hostname === 'localhost'
+      ? 'http://localhost:5001'
+      : window.location.origin;
+
+  // Redirect if already logged in
   useEffect(() => {
     if (localStorage.getItem('isAuthenticated') === 'true') {
       navigate('/');
     }
   }, [navigate]);
 
-  const API_URL = process.env.REACT_APP_API_URL;
-
+  // ----------------------
+  // Login handler
+  // ----------------------
   const handleLogin = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-  try {
-    const response = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    console.log('36',response);
-    
-    const data = await response.json();
-    console.log('36',data);
+    try {
+      const response = await fetch(`${BASE_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }, // ✅ Required
+        body: JSON.stringify({ username, password }),
+        credentials: 'omit',
+      });
 
-    setLoading(false);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Login failed with status ${response.status}`);
+      }
 
-    if (!response.ok) {
-      throw new Error(data.message || "Invalid username or password");
+      const data = await response.json();
+      console.log('Login successful:', data);
+
+      // Save auth state
+      localStorage.setItem('isAuthenticated', 'true');
+      setIsAuthenticated(true);
+      navigate('/');
+    } catch (err) {
+      console.error('Login Error:', err.message);
+      setError(err.message || 'Failed to connect to the server.');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    // 🔹 Save token and authenticate user
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("isAuthenticated", "true");
-    setIsAuthenticated(true);
-    navigate("/");
-  } catch (error) {
-    console.error("❌ Login Error:", error.message);
-    setError("Invalid username or password. Please try again.");
-    setLoading(false);
-  }
-};
-
-
-  // ✅ Handle Sign-Up
+  // ----------------------
+  // Sign-Up handler
+  // ----------------------
   const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-  
+
     try {
-      const response = await fetch(`${API_URL}/register`, {
+      const response = await fetch(`${BASE_URL}/api/register`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }, // ✅ Required
         body: JSON.stringify({ firstName, lastName, email, username, password }),
       });
-  
-      const data = await response.json();
-      setLoading(false);
-  
+
+      const data = await response.json().catch(() => ({}));
+
       if (!response.ok) {
         throw new Error(data.message || 'Error registering user');
       }
-  
+
       alert('Registration successful! Please log in.');
       setIsSignUp(false);
-    } catch (error) {
-      console.error('Sign-Up Error:', error.message);
-      setError('Failed to connect to the server. Please try again.');
+    } catch (err) {
+      console.error('Sign-Up Error:', err.message);
+      setError(err.message || 'Failed to connect to the server.');
+    } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="login-container">
@@ -165,5 +172,3 @@ const Login = ({ setIsAuthenticated }) => {
 };
 
 export default Login;
-
-
