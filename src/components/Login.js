@@ -14,11 +14,8 @@ const Login = ({ setIsAuthenticated }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // ✅ Backend URL (React 3000, Backend 5001)
-  const BASE_URL =
-    window.location.hostname === 'localhost'
-      ? 'http://localhost:5001'
-      : window.location.origin;
+  // ✅ Use your deployed backend URL
+  const BASE_URL = 'https://guvi-dashboard-backend-2.onrender.com';
 
   // Redirect if already logged in
   useEffect(() => {
@@ -38,7 +35,7 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       const response = await fetch(`${BASE_URL}/api/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }, // ✅ Required
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
         credentials: 'omit',
       });
@@ -74,7 +71,7 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       const response = await fetch(`${BASE_URL}/api/register`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }, // ✅ Required
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email, username, password }),
       });
 
